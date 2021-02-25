@@ -46,7 +46,7 @@ public class Problem {
      * @param setVal номер множества
      */
     public void addPoint(double x, double y, int setVal) {
-        Point point = new Point(x, y, setVal);
+            Point point = new Point(x, y, setVal);
         points.add(point);
     }
 
@@ -130,9 +130,15 @@ public class Problem {
      *
      * @param gl переменная OpenGL для рисования
      */
+
     public void render(GL2 gl) {
-        for (Point point : points) {
-            point.render(gl);
-        }
+    //    for (Point point : points) {
+    //        point.render(gl);
+    //    }
+        Figures.renderPoint(gl, new Vector2(0.5, 0.5), 1);
+        Figures.renderLine(gl, new Vector2(0.3,0.3), new Vector2(-0.3, -0.3), 1);
+        Figures.renderTriangle(gl,  new Vector2(0.1, 0.1),  new Vector2(0.5, -0.5),  new Vector2(-0.5, 0.3), false);
+        Figures.renderQuad(gl,  new Vector2(0.2, 0.2),  new Vector2(0.3, -0.3),  new Vector2(-0.3, 0.1), new Vector2(0.1, -0.7), true);
+
     }
 }
