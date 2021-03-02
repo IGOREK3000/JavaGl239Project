@@ -53,4 +53,27 @@ public class Figures {
         }
         gl.glEnd();
     }
+    public static void renderCircle(GL2 gl,Vector2 posA, double r, boolean filled) {
+        double x = 0;
+        double y = 0;
+        if (filled == false) {
+            gl.glBegin(GL2.GL_LINE_STRIP);
+            for (int i = 0; i < 1000; i++) {
+                x = r * Math.cos(2*(Math.PI/1000)*i) + posA.x;
+                y = r * Math.sin(2*(Math.PI/1000)*i) + posA.y;
+                gl.glVertex2d(x, y);
+            }
+        }
+        if (filled == true) {
+            gl.glPointSize((float) 1);
+            gl.glBegin(GL2.GL_TRIANGLE_FAN);
+            for (int i = 0; i < 10000; i++) {
+                x = r * Math.cos(2*(Math.PI/10000)*i) + posA.x;
+                y = r * Math.sin(2*(Math.PI/10000)*i) + posA.y;
+                gl.glVertex2d(x, y);
+            }
+        }
+        gl.glEnd();
+    }
 }
+

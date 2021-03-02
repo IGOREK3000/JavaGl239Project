@@ -135,10 +135,11 @@ public class Problem {
     //    for (Point point : points) {
     //        point.render(gl);
     //    }
-        Figures.renderPoint(gl, new Vector2(0.5, 0.5), 1);
-        Figures.renderLine(gl, new Vector2(0.3,0.3), new Vector2(-0.3, -0.3), 1);
-        Figures.renderTriangle(gl,  new Vector2(0.1, 0.1),  new Vector2(0.5, -0.5),  new Vector2(-0.5, 0.3), false);
-        Figures.renderQuad(gl,  new Vector2(0.2, 0.2),  new Vector2(0.3, -0.3),  new Vector2(-0.3, 0.1), new Vector2(0.1, -0.7), true);
-
+    //    Figures.renderPoint(gl, new Vector2(0.5, 0.5), 1);
+    //    Figures.renderLine(gl, new Vector2(0.3,0.3), new Vector2(-0.3, -0.3), 1);
+    //    Figures.renderTriangle(gl,  new Vector2(0.1, 0.1),  new Vector2(0.5, -0.5),  new Vector2(-0.5, 0.3), false);
+    //    Figures.renderQuad(gl,  new Vector2(0.2, 0.2),  new Vector2(0.3, -0.3),  new Vector2(-0.3, 0.1), new Vector2(0.1, -0.7), true);
+    //    Figures.renderCircle(gl,  new Vector2(0.1, 0.1),  0.6, false);
+        Figures.renderCircle(gl,  new Vector2(0.1, 0.1),  0.6, false);
     }
 }
