@@ -35,14 +35,14 @@ public class Figures {
         gl.glEnd();
     }
     public static void renderQuad(GL2 gl,Vector2 posA, Vector2 posB, Vector2 posC, Vector2 posD, boolean filled) {
-        if (filled == true) {
+        if (filled) {
             gl.glBegin(GL2.GL_QUADS);
             gl.glVertex2d(posA.x, posA.y);
             gl.glVertex2d(posB.x, posB.y);
             gl.glVertex2d(posC.x, posC.y);
             gl.glVertex2d(posD.x, posD.y);
         }
-        if (filled == false) {
+        else {
             gl.glPointSize((float) 1);
             gl.glBegin(GL2.GL_LINE_STRIP);
             gl.glVertex2d(posA.x, posA.y);
