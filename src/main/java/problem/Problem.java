@@ -132,6 +132,7 @@ public class Problem {
      */
 
     public void render(GL2 gl) {
+
             for (Rectangle point : rectangles) {
                 point.render(gl);
             }
