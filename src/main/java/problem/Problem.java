@@ -54,41 +54,42 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        // перебираем пары точек
-//        for (Point p : rectangles) {
-//            for (Point p2 : rectangles) {
-//                // если точки являются разными
-//                if (p != p2) {
-//                    // если координаты у них совпадают
-//                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-//                        p.isSolution = true;
-//                        p2.isSolution = true;
-//                    }
-//                }
-//            }
-//        }
+        // перебираем пары прямоугольников
+
+  //      for (Rectangle p : rectangles) {
+  //          for (Rectangle p2 : rectangles) {
+  //              // если точки являются разными
+  //              if (p != p2) {
+  //                  // если координаты у них совпадают
+  //                  if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
+   //                     p.isSolution = true;
+   //                     p2.isSolution = true;
+   //                 }
+   //             }
+   //         }
+    //    }
     }
 
     /**
      * Загрузить задачу из файла
      */
     public void loadFromFile() {
-//        rectangles.clear();
-//        try {
-//            File file = new File(FILE_NAME);
-//            Scanner sc = new Scanner(file);
-//            // пока в файле есть непрочитанные строки
-//            while (sc.hasNextLine()) {
-//                double x = sc.nextDouble();
-//                double y = sc.nextDouble();
-//                int setVal = sc.nextInt();
-//                sc.nextLine();
-//                Point point = new Point(x, y, setVal);
-//                rectangles.add(point);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Ошибка чтения из файла: " + ex);
-//        }
+ //       rectangles.clear();
+ //       try {
+ //           File file = new File(FILE_NAME);
+ //           Scanner sc = new Scanner(file);
+ //           // пока в файле есть непрочитанные строки
+ //           while (sc.hasNextLine()) {
+ //               double x = sc.nextDouble();
+ //               double y = sc.nextDouble();
+ //               int setVal = sc.nextInt();
+ //               sc.nextLine();
+ //               Point point = new Point(x, y, setVal);
+ //               rectangles.add(point);
+ //           }
+ //       } catch (Exception ex) {
+  //          System.out.println("Ошибка чтения из файла: " + ex);
+ //       }
     }
 
     /**

@@ -52,13 +52,7 @@ public class Point {
      *
      * @return случайная точка
      */
-    static Point getRandomPoint() {
-        Random r = new Random();
-        double nx = (double) r.nextInt(50) / 25 - 1;
-        double ny = (double) r.nextInt(50) / 25 - 1;
-        int nSetVal = r.nextInt(2);
-        return new Point(nx, ny, nSetVal);
-    }
+
 
     /**
      * Рисование точки
@@ -82,6 +76,38 @@ public class Point {
         gl.glVertex2d(x, y);
         gl.glEnd();
         gl.glPointSize(1);
+    }
+
+    public static Point interectonPoint(Point p1, Point p2, Point p3, Point p4) {
+        Point p = new Point();
+        double sin1 = (p1.y - p2.y)/Math.sqrt((p1.y - p2.y)*(p1.y - p2.y) + (p1.x - p2.x)*(p1.x - p2.x));
+        double sin2 = (p3.y - p4.y)/Math.sqrt((p3.y - p4.y)*(p3.y - p4.y) + (p3.x - p4.x)*(p3.x - p4.x));
+        double k1 = Math.abs(sin1);
+        double k2 = Math.abs(sin2);
+        if (k1 != k2) {
+            p.x = ((p3.x * p4.y - p4.x * p3.y)*(p2.x - p1.x) - (p1.x * p2.y - p2.x * p1.y)*(p4.x - p3.x))/(p1.y - p2.y)*(p4.x - p3.x)-(p3.y - p4.y)*(p2.x - p1.x));
+            p.y = ((p3.x * p4.y - p4.x * p3.y)*(p1.y - p2.y)-(p1.x * p2.y - p2.x * p1.y)*(p3.y - p4.y))/((p2.x - p1.x)*(p3.y - p4.y)-(p4.x - p3.x)*(p1.y - p2.y));
+        }
+        if (k1 == k2){
+            p = null;
+        }
+        int min1x;
+        int min1y;
+        int min2x;
+        int min2y;
+        int max1x;
+        int max1y;
+        int max2x;
+        int max2y;
+
+        if (p1.x >= p2.x) {
+            max1x = p1.x;
+            min1x = p2.x;
+        } else {
+            max1x = p2.x;
+            min1x = p1.x;
+        }
+        if (p.x )
     }
 
     /**
