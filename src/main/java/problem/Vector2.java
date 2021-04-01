@@ -77,4 +77,62 @@ class Vector2 {
         return l;
     }
 
+    public static Vector2 interectonPoint(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4) {
+        Vector2 p = new Vector2();
+        double sin1 = (p1.y - p2.y)/Math.sqrt((p1.y - p2.y)*(p1.y - p2.y) + (p1.x - p2.x)*(p1.x - p2.x));
+        double sin2 = (p3.y - p4.y)/Math.sqrt((p3.y - p4.y)*(p3.y - p4.y) + (p3.x - p4.x)*(p3.x - p4.x));
+        double k1 = Math.abs(sin1);
+        double k2 = Math.abs(sin2);
+        if (k1 != k2) {
+            p.x = ((p3.x * p4.y - p4.x * p3.y)*(p2.x - p1.x) - (p1.x * p2.y - p2.x * p1.y)*(p4.x - p3.x))/(p1.y - p2.y)*(p4.x - p3.x)-(p3.y - p4.y)*(p2.x - p1.x));
+            p.y = ((p3.x * p4.y - p4.x * p3.y)*(p1.y - p2.y)-(p1.x * p2.y - p2.x * p1.y)*(p3.y - p4.y))/((p2.x - p1.x)*(p3.y - p4.y)-(p4.x - p3.x)*(p1.y - p2.y));
+        }
+        if (k1 == k2){
+            p.x = 100;
+            p.y = 100;
+        }
+        double min1x;
+        double min1y;
+        double min2x;
+        double min2y;
+        double max1x;
+        double max1y;
+        double max2x;
+        double max2y;
+
+        if (p1.x >= p2.x) {
+            max1x = p1.x;
+            min1x = p2.x;
+        } else {
+            max1x = p2.x;
+            min1x = p1.x;
+        }
+        if (p1.y >= p2.y) {
+            max1y = p1.y;
+            min1y = p2.y;
+        } else {
+            max1y = p2.y;
+            min1y = p1.y;
+        }
+        if (p3.x >= p4.x) {
+            max2x = p3.x;
+            min2x = p4.x;
+        } else {
+            max2x = p4.x;
+            min2x = p3.x;
+        }
+        if (p3.y >= p4.y) {
+            max2y = p3.y;
+            min2y = p4.y;
+        } else {
+            max2y = p4.y;
+            min2y = p3.y;
+        }
+
+        if (p.x < min1x || p.x > max1x || p.y > max1y || p.y < min1y || p.x < min2x || p.x > max2x || p.y > max2y || p.y < min2y) {
+            p.x = 100;
+            p.x = 100;
+        }
+        return p;
+    }
 }

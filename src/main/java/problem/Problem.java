@@ -56,10 +56,83 @@ public class Problem {
     public void solve() {
         // перебираем пары прямоугольников
 
-  //      for (Rectangle p : rectangles) {
-  //          for (Rectangle p2 : rectangles) {
-  //              // если точки являются разными
-  //              if (p != p2) {
+        for (Rectangle r1 : rectangles) {
+            for (Rectangle r2 : rectangles) {
+                Vector2 p1 = Vector2.interectonPoint(r1.A, r1.B, r2.A, r2.B);
+                Vector2 p2 = Vector2.interectonPoint(r1.B, r1.C, r2.A, r2.B);
+                Vector2 p3 = Vector2.interectonPoint(r1.C, r1.D, r2.A, r2.B);
+                Vector2 p4 = Vector2.interectonPoint(r1.A, r1.D, r2.A, r2.B);
+                Vector2 p5 = Vector2.interectonPoint(r1.A, r1.B, r2.B, r2.C);
+                Vector2 p6 = Vector2.interectonPoint(r1.B, r1.C, r2.B, r2.C);
+                Vector2 p7 = Vector2.interectonPoint(r1.C, r1.D, r2.B, r2.C);
+                Vector2 p8 = Vector2.interectonPoint(r1.A, r1.D, r2.B, r2.C);
+                Vector2 p9 = Vector2.interectonPoint(r1.A, r1.B, r2.C, r2.D);
+                Vector2 p10 = Vector2.interectonPoint(r1.B, r1.C, r2.C, r2.D);
+                Vector2 p11 = Vector2.interectonPoint(r1.C, r1.D, r2.C, r2.D);
+                Vector2 p12 = Vector2.interectonPoint(r1.A, r1.D, r2.C, r2.D);
+                Vector2 p13 = Vector2.interectonPoint(r1.A, r1.B, r2.A, r2.D);
+                Vector2 p14 = Vector2.interectonPoint(r1.B, r1.C, r2.A, r2.D);
+                Vector2 p15 = Vector2.interectonPoint(r1.C, r1.D, r2.A, r2.D);
+                Vector2 p16 = Vector2.interectonPoint(r1.A, r1.D, r2.A, r2.D);
+                Vector2[] points = new Vector2[] {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16};
+                Vector2[] triangle1 = new Vector2[2];
+                Vector2[] triangle2 = new Vector2[2];
+
+                int t = 1;
+                for (int i = 1; i < 16; i++) {
+                    int k1 = 0;
+                    if ((points[i].x != 100) && (k1 < 3)) {
+                        k1++;
+                        triangle1[k1 - 1] = points[i];
+                        t = i;
+                    }
+                }
+                for (int i = t; i < 16; i++) {
+                    int k2 = 0;
+                    if ((points[i].x != 100) && (k2 < 1)) {
+                        if (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]) != 100) {
+                            triangle2[0] = triangle1[1];
+                            triangle2[1] = triangle1[2];
+                            triangle2[2] = points[i];
+                        }
+                        if (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]) != 100) {
+                            triangle2[0] = triangle1[0];
+                            triangle2[1] = triangle1[2];
+                            triangle2[2] = points[i];
+                        }
+                        if (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], triangle1[1]) != 100) {
+                            triangle2[0] = triangle1[0];
+                            triangle2[1] = triangle1[1];
+                            triangle2[2] = points[i];
+                        }
+                    }
+                }
+                for (int i = t; i < 16; i++) {
+                    int k2 = 0;
+                    if ((points[i].x != 100) && (k2 < 1)) {
+                        if (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]) != 100) {
+                            triangle2[0] = triangle1[1];
+                            triangle2[1] = triangle1[2];
+                            triangle2[2] = points[i];
+                        }
+                        if (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]) != 100) {
+                            triangle2[0] = triangle1[0];
+                            triangle2[1] = triangle1[2];
+                            triangle2[2] = points[i];
+                        }
+                        if (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], triangle1[1]) != 100) {
+                            triangle2[0] = triangle1[0];
+                            triangle2[1] = triangle1[1];
+                            triangle2[2] = points[i];
+                        }
+                    }
+                }
+
+            }
+            }
+        }
+                // если точки являются разными
+   //             if (p != p2) {
   //                  // если координаты у них совпадают
   //                  if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
    //                     p.isSolution = true;
@@ -68,7 +141,7 @@ public class Problem {
    //             }
    //         }
     //    }
-    }
+
 
     /**
      * Загрузить задачу из файла
