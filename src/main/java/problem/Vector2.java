@@ -84,7 +84,7 @@ class Vector2 {
         double k1 = Math.abs(sin1);
         double k2 = Math.abs(sin2);
         if (k1 != k2) {
-            p.x = ((p3.x * p4.y - p4.x * p3.y)*(p2.x - p1.x) - (p1.x * p2.y - p2.x * p1.y)*(p4.x - p3.x))/(p1.y - p2.y)*(p4.x - p3.x)-(p3.y - p4.y)*(p2.x - p1.x));
+            p.x = ((p3.x * p4.y - p4.x * p3.y)*(p2.x - p1.x) - (p1.x * p2.y - p2.x * p1.y)*(p4.x - p3.x)/(p1.y - p2.y)*(p4.x - p3.x)-(p3.y - p4.y)*(p2.x - p1.x));
             p.y = ((p3.x * p4.y - p4.x * p3.y)*(p1.y - p2.y)-(p1.x * p2.y - p2.x * p1.y)*(p3.y - p4.y))/((p2.x - p1.x)*(p3.y - p4.y)-(p4.x - p3.x)*(p1.y - p2.y));
         }
         if (k1 == k2){
@@ -131,8 +131,20 @@ class Vector2 {
 
         if (p.x < min1x || p.x > max1x || p.y > max1y || p.y < min1y || p.x < min2x || p.x > max2x || p.y > max2y || p.y < min2y) {
             p.x = 100;
+            p.y = 100;
+        }
+        if (((p.x == p1.x) && (p.y == p1.y)) || ((p.x == p2.x) && (p.y == p2.y)) || ((p.x == p3.x) && (p.y == p3.y)) || ((p.x == p4.x) && (p.y == p4.y))) {
             p.x = 100;
+            p.y = 100;
         }
         return p;
+    }
+    public static double triangleArea(Vector2 p1, Vector2 p2, Vector2 p3) {
+        double a = Math.sqrt((p2.x - p1.x)*(p2.x - p1.x) + (p2.y - p1.y)*(p2.y - p1.y));
+        double b = Math.sqrt((p3.x - p2.x)*(p3.x - p2.x) + (p3.y - p2.y)*(p3.y - p2.y));
+        double c = Math.sqrt((p3.x - p1.x)*(p3.x - p1.x) + (p3.y - p1.y)*(p3.y - p1.y));
+        double z = (a + b + c)/2;
+        double s = Math.sqrt(z*(z-a)*(z-b)*(z-c));
+        return s;
     }
 }

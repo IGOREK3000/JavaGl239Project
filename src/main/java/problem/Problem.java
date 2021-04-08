@@ -55,7 +55,15 @@ public class Problem {
      */
     public void solve() {
         // перебираем пары прямоугольников
-
+        int f1 = 0;
+        int f2 = 0;
+        int f3 = 0;
+        int f4 = 0;
+        double s = 0;
+        Vector2[] triangle1 = new Vector2[2];
+        Vector2[] triangle2 = new Vector2[2];
+        Vector2[] triangle3 = new Vector2[2];
+        Vector2[] triangle4 = new Vector2[2];
         for (Rectangle r1 : rectangles) {
             for (Rectangle r2 : rectangles) {
                 Vector2 p1 = Vector2.interectonPoint(r1.A, r1.B, r2.A, r2.B);
@@ -75,8 +83,7 @@ public class Problem {
                 Vector2 p15 = Vector2.interectonPoint(r1.C, r1.D, r2.A, r2.D);
                 Vector2 p16 = Vector2.interectonPoint(r1.A, r1.D, r2.A, r2.D);
                 Vector2[] points = new Vector2[] {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16};
-                Vector2[] triangle1 = new Vector2[2];
-                Vector2[] triangle2 = new Vector2[2];
+
 
                 int t = 1;
                 for (int i = 1; i < 16; i++) {
@@ -85,77 +92,157 @@ public class Problem {
                         k1++;
                         triangle1[k1 - 1] = points[i];
                         t = i;
+                        f1 = 1;
                     }
                 }
-                int tn = 15;
-                for (int i = t; i < 16; i++) {
-                    int k2 = 0;
-                    if ((points[i].x != 100) && (k2 < 1)) {
-                        if (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]) != 100) {
-                            triangle2[0] = triangle1[1];
-                            triangle2[1] = triangle1[2];
-                            triangle2[2] = points[i];
-                        }
-                        if (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]) != 100) {
-                            triangle2[0] = triangle1[0];
-                            triangle2[1] = triangle1[2];
-                            triangle2[2] = points[i];
-                        }
-                        if (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], triangle1[1]) != 100) {
-                            triangle2[0] = triangle1[0];
-                            triangle2[1] = triangle1[1];
-                            triangle2[2] = points[i];
-                        }
-                        tn = i;
-                    }
-                }
+
                 int t1 = 15;
-                for (int i = t; i < 16; i++) {
+                for (int i = t+1; i < 16; i++) {
                     int k2 = 0;
                     if ((points[i].x != 100) && (k2 < 1)) {
-                        if ((Vector2.interectonPoint(points[i], triangle2[2], triangle2[0], triangle2[1]) != 100) && (Vector2.interectonPoint(points[i], triangle2[1], triangle2[0], triangle2[]) != 100)) {
+                        if (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]).x != 100) {
                             triangle2[0] = triangle1[1];
                             triangle2[1] = triangle1[2];
                             triangle2[2] = points[i];
                         }
-                        if (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]) != 100) {
+                        if (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]).x != 100) {
                             triangle2[0] = triangle1[0];
                             triangle2[1] = triangle1[2];
                             triangle2[2] = points[i];
                         }
-                        if (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], triangle1[1]) != 100) {
+                        if (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], triangle1[1]).x != 100) {
                             triangle2[0] = triangle1[0];
                             triangle2[1] = triangle1[1];
                             triangle2[2] = points[i];
                         }
+                        f2 = 1;
                         t1 = i;
                         k2++;
                     }
                 }
+
                 int t2 = 15;
-                for (int i = t1; i < 16; i++) {
+                for (int i = t1+1; i < 16; i++) {
                     int k3 = 0;
+                    int v0 = 0;
+                    int v1 = 0;
+                    int v2 = 0;
+                    int v3 = 0;
                     if ((points[i].x != 100) && (k3 < 1)) {
-                        if (Vector2.interectonPoint(points[t], triangle1[0], triangle1[1], triangle1[2]) != 100) {
-                            triangle2[0] = triangle1[1];
-                            triangle2[1] = triangle1[2];
-                            triangle2[2] = points[i];
+                        if ((Vector2.interectonPoint(points[i], triangle1[0], triangle1[2], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]).x == 100)) v0 = 1;
+                        if ((Vector2.interectonPoint(points[i], triangle1[1], triangle1[2], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]).x == 100)) v1 = 1;
+                        if ((Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], triangle1[1], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], triangle1[1], triangle1[0]).x == 100)) v2 = 1;
+                        if ((Vector2.interectonPoint(points[i], points[t1], triangle1[0], triangle1[1]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[2], triangle1[1]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[2], triangle1[0]).x == 100)) v3 = 1;
+                        if ((v0 == 1) && (v1 == 1)) {
+                            triangle3[0] = points[i];
+                            triangle3[1] = triangle1[0];
+                            triangle3[2] = triangle1[1];
                         }
-                        if (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]) != 100) {
-                            triangle2[0] = triangle1[0];
-                            triangle2[1] = triangle1[2];
-                            triangle2[2] = points[i];
+                        if ((v1 == 1) && (v2 == 1)) {
+                            triangle3[0] = points[i];
+                            triangle3[1] = triangle1[1];
+                            triangle3[2] = triangle1[2];
                         }
-                        if (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], triangle1[1]) != 100) {
-                            triangle2[0] = triangle1[0];
-                            triangle2[1] = triangle1[1];
-                            triangle2[2] = points[i];
+                        if ((v2 == 1) && (v3 == 1)) {
+                            triangle3[0] = points[i];
+                            triangle3[1] = triangle1[2];
+                            triangle3[2] = points[t1];
                         }
+                        if ((v3 == 1) && (v0 == 1)) {
+                            triangle3[0] = points[i];
+                            triangle3[1] = points[t1];
+                            triangle3[2] = triangle1[0];
+                        }
+                        if ((v1 == 1) && (v3 == 1)) {
+                            triangle3[0] = points[i];
+                            triangle3[1] = triangle1[1];
+                            triangle3[2] = points[t1];
+                        }
+                        if ((v0 == 1) && (v2 == 1)) {
+                            triangle3[0] = points[i];
+                            triangle3[1] = triangle1[0];
+                            triangle3[2] = triangle1[2];
+                        }
+                        k3++;
+                        f3 = 1;
                         t2 = i;
+                    }
+                }
+
+                for (int i = t2+1; i < 16; i++) {
+                    int k4 = 0;
+                    int v0 = 0;
+                    int v1 = 0;
+                    int v2 = 0;
+                    int v3 = 0;
+                    int v4 = 0;
+                    if ((points[i].x != 100) && (k4 < 1)) {
+                        if ((Vector2.interectonPoint(points[i], triangle1[0], triangle1[2], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], triangle1[2], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[0], points[t1], points[t2]).x == 100)) v0 = 1;
+                        if ((Vector2.interectonPoint(points[i], triangle1[1], triangle1[2], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], triangle1[2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], triangle1[0], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], triangle1[2], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[1], points[t1], points[t2]).x == 100)) v1 = 1;
+                        if ((Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], triangle1[1], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], triangle1[1], triangle1[0]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], triangle1[1], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], triangle1[0], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], triangle1[2], points[t1], points[t2]).x == 100)) v2 = 1;
+                        if ((Vector2.interectonPoint(points[i], points[t1], triangle1[0], triangle1[1]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[2], triangle1[1]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[2], triangle1[0]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[0], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[1], points[t2]).x == 100) && (Vector2.interectonPoint(points[i], points[t1], triangle1[2], points[t2]).x == 100)) v3 = 1;
+                        if ((Vector2.interectonPoint(points[i], points[t2], triangle1[0], triangle1[1]).x == 100) && (Vector2.interectonPoint(points[i], points[t2], triangle1[2], triangle1[1]).x == 100) && (Vector2.interectonPoint(points[i], points[t2], triangle1[2], triangle1[0]).x == 100) && (Vector2.interectonPoint(points[i], points[t2], triangle1[0], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], points[t2], triangle1[1], points[t1]).x == 100) && (Vector2.interectonPoint(points[i], points[t2], triangle1[2], points[t1]).x == 100)) v4 = 1;
+                        if ((v0 == 1) && (v1 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[0];
+                            triangle4[2] = triangle1[1];
+                        }
+                        if ((v1 == 1) && (v2 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[1];
+                            triangle4[2] = triangle1[2];
+                        }
+                        if ((v2 == 1) && (v3 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[2];
+                            triangle4[2] = points[t1];
+                        }
+                        if ((v3 == 1) && (v0 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = points[t1];
+                            triangle4[2] = triangle1[0];
+                        }
+                        if ((v1 == 1) && (v3 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[1];
+                            triangle4[2] = points[t1];
+                        }
+                        if ((v0 == 1) && (v2 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[0];
+                            triangle4[2] = triangle1[2];
+                        }
+                        if ((v0 == 1) && (v4 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[0];
+                            triangle4[2] = points[t2];
+                        }
+                        if ((v1 == 1) && (v4 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[1];
+                            triangle4[2] = points[t2];
+                        }
+                        if ((v2 == 1) && (v4 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = triangle1[2];
+                            triangle4[2] = points[t2];
+                        }
+                        if ((v3 == 1) && (v4 == 1)) {
+                            triangle4[0] = points[i];
+                            triangle4[1] = points[t1];
+                            triangle4[2] = points[t2];
+                        }
+                        f4 = 1;
+                        k4++;
                     }
                 }
             }
             }
+        if ((f1 == 1) && (f2 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]);
+        if ((f2 == 1) && (f3 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]);
+        if ((f3 == 1) && (f4 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]) + Vector2.triangleArea(triangle3[0], triangle3[1], triangle3[2]);
+        if (f4 == 1) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]) + Vector2.triangleArea(triangle3[0], triangle3[1], triangle3[2]) + Vector2.triangleArea(triangle4[0], triangle4[1], triangle4[2]);
+
         }
                 // если точки являются разными
    //             if (p != p2) {
