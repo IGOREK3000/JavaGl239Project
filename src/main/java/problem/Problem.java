@@ -53,6 +53,7 @@ public class Problem {
     /**
      * Решить задачу
      */
+
     public void solve() {
         // перебираем пары прямоугольников
         int f1 = 0;
@@ -60,10 +61,12 @@ public class Problem {
         int f3 = 0;
         int f4 = 0;
         double s = 0;
+        ArrayList<Double> area = new ArrayList<>();
         Vector2[] triangle1 = new Vector2[2];
         Vector2[] triangle2 = new Vector2[2];
         Vector2[] triangle3 = new Vector2[2];
         Vector2[] triangle4 = new Vector2[2];
+        double maxS = 0;
         for (Rectangle r1 : rectangles) {
             for (Rectangle r2 : rectangles) {
                 Vector2 p1 = Vector2.interectonPoint(r1.A, r1.B, r2.A, r2.B);
@@ -82,11 +85,20 @@ public class Problem {
                 Vector2 p14 = Vector2.interectonPoint(r1.B, r1.C, r2.A, r2.D);
                 Vector2 p15 = Vector2.interectonPoint(r1.C, r1.D, r2.A, r2.D);
                 Vector2 p16 = Vector2.interectonPoint(r1.A, r1.D, r2.A, r2.D);
-                Vector2[] points = new Vector2[] {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16};
+                Vector2 p17 = Rectangle.insidePoint(r1.A, r2);
+                Vector2 p18 = Rectangle.insidePoint(r1.B, r2);
+                Vector2 p19 = Rectangle.insidePoint(r1.C, r2);
+                Vector2 p20 = Rectangle.insidePoint(r1.D, r2);
+                Vector2 p21 = Rectangle.insidePoint(r2.A, r1);
+                Vector2 p22 = Rectangle.insidePoint(r2.B, r1);
+                Vector2 p23 = Rectangle.insidePoint(r2.C, r1);
+                Vector2 p24 = Rectangle.insidePoint(r2.D, r1);
+
+                Vector2[] points = new Vector2[] {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, p21, p22, p23, p24};
 
 
                 int t = 1;
-                for (int i = 1; i < 16; i++) {
+                for (int i = 1; i < 24; i++) {
                     int k1 = 0;
                     if ((points[i].x != 100) && (k1 < 3)) {
                         k1++;
@@ -97,7 +109,7 @@ public class Problem {
                 }
 
                 int t1 = 15;
-                for (int i = t+1; i < 16; i++) {
+                for (int i = t+1; i < 24; i++) {
                     int k2 = 0;
                     if ((points[i].x != 100) && (k2 < 1)) {
                         if (Vector2.interectonPoint(points[i], triangle1[0], triangle1[1], triangle1[2]).x != 100) {
@@ -122,7 +134,7 @@ public class Problem {
                 }
 
                 int t2 = 15;
-                for (int i = t1+1; i < 16; i++) {
+                for (int i = t1+1; i < 24; i++) {
                     int k3 = 0;
                     int v0 = 0;
                     int v1 = 0;
@@ -169,7 +181,7 @@ public class Problem {
                     }
                 }
 
-                for (int i = t2+1; i < 16; i++) {
+                for (int i = t2+1; i < 24; i++) {
                     int k4 = 0;
                     int v0 = 0;
                     int v1 = 0;
@@ -236,12 +248,23 @@ public class Problem {
                         k4++;
                     }
                 }
+                if ((f1 == 1) && (f2 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]);
+                if ((f2 == 1) && (f3 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]);
+                if ((f3 == 1) && (f4 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]) + Vector2.triangleArea(triangle3[0], triangle3[1], triangle3[2]);
+                if (f4 == 1) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]) + Vector2.triangleArea(triangle3[0], triangle3[1], triangle3[2]) + Vector2.triangleArea(triangle4[0], triangle4[1], triangle4[2]);
+                area.add(s);
+                if (s > maxS) {
+                    maxS = s;
+
+                }
+
             }
             }
-        if ((f1 == 1) && (f2 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]);
-        if ((f2 == 1) && (f3 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]);
-        if ((f3 == 1) && (f4 == 0)) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]) + Vector2.triangleArea(triangle3[0], triangle3[1], triangle3[2]);
-        if (f4 == 1) s = Vector2.triangleArea(triangle1[0], triangle1[1], triangle1[2]) + Vector2.triangleArea(triangle2[0], triangle2[1], triangle2[2]) + Vector2.triangleArea(triangle3[0], triangle3[1], triangle3[2]) + Vector2.triangleArea(triangle4[0], triangle4[1], triangle4[2]);
+        int max = area[1];
+        for (double S: area) {
+
+        }
+
 
         }
                 // если точки являются разными
