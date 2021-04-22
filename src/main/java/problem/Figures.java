@@ -17,6 +17,7 @@ public class Figures {
         gl.glEnd();
     }
     public static void renderTriangle(GL2 gl,Vector2 posA, Vector2 posB, Vector2 posC, boolean filled) {
+        gl.glColor3f( 0, 0, 1 );
         if (filled == true) {
             gl.glBegin(GL2.GL_TRIANGLES);
             gl.glVertex2d(posA.x, posA.y);
@@ -32,6 +33,7 @@ public class Figures {
             gl.glVertex2d(posC.x, posC.y);
             gl.glVertex2d(posA.x, posA.y);
         }
+        gl.glColor3f(1, 1, 1);
         gl.glEnd();
     }
     public static void renderQuad(GL2 gl,Vector2 posA, Vector2 posB, Vector2 posC, Vector2 posD, boolean filled) {
@@ -76,4 +78,3 @@ public class Figures {
         gl.glEnd();
     }
 }
-

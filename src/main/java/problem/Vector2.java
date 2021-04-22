@@ -1,10 +1,12 @@
 package problem;
 
+import javax.media.opengl.GL2;
+
 class Vector2 {
     public double x;
     public double y;
     public Vector2() {
-        x = 1;
+        x = 0;
         y = 0;
     }
     public String toString() {
@@ -12,85 +14,21 @@ class Vector2 {
         return s;
     }
     public Vector2(double x, double y) {
-        this.x =x ;
-        this.y = y;
-    }
-    public Vector2(Vector2 v) {
-        this.x = v.x;
-        this.y = v.y;
-    }
-    public void setX(double x) {
         this.x = x;
-    }
-    public void setY(double y) {
         this.y = y;
-    }
-    public double getX() {
-        return x;
-    }
-    public double getY() {
-        return y;
-    }
-    public double len() {
-        return Math.sqrt(x*x + y*y);
-    }
-    public void x(double k) {
-        this.x = x * k;
-        this.y = y * k;
-    }
-    public void plus(Vector2 v) {
-        this.x = x + v.x;
-        this.y = y + v.y;
-    }
-    public void minus(Vector2 v) {
-        this.x = x - v.x;
-        this.y = y - v.y;
-    }
-    public Vector2 sum(Vector2 v) {
-        Vector2 l = new Vector2(0,0);
-        l.x = x + v.x;
-        l.y = y + v.y;
-        return l;
-    }
-    public static Vector2 sum(Vector2 m, Vector2 n) {
-        Vector2 l = new Vector2(0,0);
-        l.x = m.x + n.x;
-        l.y = m.y + n.y;
-        return l;
-    }
-    public Vector2 mult(double k) {
-        Vector2 l = new Vector2(0,0);
-        l.x = x * k;
-        l.y = y * k;
-        return l;
-    }
-    public double mult(Vector2 v) {
-        return v.x*x + v.y*y;
-    }
-    public static double mult(Vector2 m, Vector2 n) {
-        return m.x*n.x + m.y*n.y;
-    }
-    public static Vector2 mult(Vector2 m, double n) {
-        Vector2 l = new Vector2(0,0);
-        l.x = m.x * n;
-        l.y = m.y * n;
-        return l;
     }
 
+    public static double rast(Vector2 p1, Vector2 p2) {
+        double f = Math.sqrt((p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y));
+        return f;
+    }
+    public static boolean insideAngle(Vector2 s, Vector2 p1, Vector2 p2, Vector2 p3) {
+        boolean f = false;
+        if ((Vector2.getAngle(p1, p2, s) < Vector2.getAngle(p1, p2, p3)) && (Vector2.getAngle(p3, p2, s) < Vector2.getAngle(p1, p2, p3))) f = true;
+        return f;
+    }
     public static Vector2 interectonPoint(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4) {
-        Vector2 p = new Vector2();
-        double sin1 = (p1.y - p2.y)/Math.sqrt((p1.y - p2.y)*(p1.y - p2.y) + (p1.x - p2.x)*(p1.x - p2.x));
-        double sin2 = (p3.y - p4.y)/Math.sqrt((p3.y - p4.y)*(p3.y - p4.y) + (p3.x - p4.x)*(p3.x - p4.x));
-        double k1 = Math.abs(sin1);
-        double k2 = Math.abs(sin2);
-        if (k1 != k2) {
-            p.x = ((p3.x * p4.y - p4.x * p3.y)*(p2.x - p1.x) - (p1.x * p2.y - p2.x * p1.y)*(p4.x - p3.x)/(p1.y - p2.y)*(p4.x - p3.x)-(p3.y - p4.y)*(p2.x - p1.x));
-            p.y = ((p3.x * p4.y - p4.x * p3.y)*(p1.y - p2.y)-(p1.x * p2.y - p2.x * p1.y)*(p3.y - p4.y))/((p2.x - p1.x)*(p3.y - p4.y)-(p4.x - p3.x)*(p1.y - p2.y));
-        }
-        if (k1 == k2){
-            p.x = 100;
-            p.y = 100;
-        }
+        Vector2 p = new Vector2(0,0);
         double min1x;
         double min1y;
         double min2x;
@@ -129,14 +67,28 @@ class Vector2 {
             min2y = p3.y;
         }
 
-        if (p.x < min1x || p.x > max1x || p.y > max1y || p.y < min1y || p.x < min2x || p.x > max2x || p.y > max2y || p.y < min2y) {
-            p.x = 100;
-            p.y = 100;
+        double a1 = p1.y-p2.y;
+        double b1 = p2.x-p1.x;
+        double c1 = p1.x*p2.y - p2.x*p1.y;
+        double a2 = p3.y-p4.y;
+        double b2 = p4.x-p3.x;
+        double c2 = p3.x*p4.y - p4.x*p3.y;
+
+
+        double k1 = (p1.y-p2.y)/(p1.x-p2.x);
+        double k2 = (p3.y-p4.y)/(p3.x-p4.x);
+
+        if ((k1 != k2) && (a1*b2-a2*b1 != 0) && (b1*a2-b2*a1 != 0)) {
+            p.x = (c2*b1 - c1*b2)/(a1*b2-a2*b1);
+            p.y = (c2*a1-c1*a2)/(b1*a2-b2*a1);
         }
-        if (((p.x == p1.x) && (p.y == p1.y)) || ((p.x == p2.x) && (p.y == p2.y)) || ((p.x == p3.x) && (p.y == p3.y)) || ((p.x == p4.x) && (p.y == p4.y))) {
-            p.x = 100;
-            p.y = 100;
+        if ((p.x < min1x || p.x < min2x) || (p.y < min1y || p.y < min2y) || (p.x > max1x || p.x > max2x) || (p.y > max1y || p.y > max2y)) {
+            p = null;
         }
+        if (k1 == k2){
+            p = null;
+        }
+
         return p;
     }
     public static double triangleArea(Vector2 p1, Vector2 p2, Vector2 p3) {
@@ -147,4 +99,14 @@ class Vector2 {
         double s = Math.sqrt(z*(z-a)*(z-b)*(z-c));
         return s;
     }
+    public static double angleOX(Vector2 p1, Vector2 p2) {
+        double angle = Math.atan2(p2.x - p1.x, p2.y - p1.y);
+        return angle;
+    }
+    public static double getAngle(Vector2 p1, Vector2 p2, Vector2 p3) {
+        double cos = (rast(p1, p2)*rast(p1, p2) + rast(p3, p2)*rast(p3, p2) - rast(p1, p3)*rast(p1, p3))/(2*rast(p1, p2)*rast(p3, p2));
+        double angle = Math.abs(Math.acos(cos));
+        return angle;
+    }
+
 }

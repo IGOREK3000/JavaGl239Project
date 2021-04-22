@@ -48,21 +48,12 @@ public class Rectangle {
         return new Rectangle(A, B, C, D);
     }
     public static Vector2 insidePoint(Vector2 v, Rectangle r) {
-        Vector2 f = new Vector2();
-        int a = 0;
-        int b = 0;
-        int c = 0;
-        int d = 0;
-        if ((Vector2.interectonPoint(v, r.A, r.B, r.C).x == 100) && ((Vector2.interectonPoint(v, r.A, r.C, r.D).x == 100))) a = 1;
-        if ((Vector2.interectonPoint(v, r.B, r.A, r.C).x == 100) && ((Vector2.interectonPoint(v, r.B, r.C, r.D).x == 100))) b = 1;
-        if ((Vector2.interectonPoint(v, r.C, r.A, r.B).x == 100) && ((Vector2.interectonPoint(v, r.C, r.A, r.D).x == 100))) c = 1;
-        if ((Vector2.interectonPoint(v, r.D, r.B, r.C).x == 100) && ((Vector2.interectonPoint(v, r.D, r.A, r.C).x == 100))) d = 1;
-        if ((a == 1) && (b == 1) && (c == 1) && (d == 1)) {
+        Vector2 f = new Vector2(0,0);
+        if (Vector2.insideAngle(v, r.B, r.A, r.D) == true && Vector2.insideAngle(v, r.B, r.C, r.D) == true) {
             f.x = v.x;
             f.y = v.y;
         } else {
-            f.x = 100;
-            f.y = 100;
+            f = null;
         }
         return f;
     }
