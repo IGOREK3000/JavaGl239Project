@@ -30,12 +30,15 @@ public class Rectangle {
 
     public static Rectangle randomRectangle() {
         Random r = new Random();
-
         double Ax = (double) r.nextInt(50) / 25 - 1;
         double Ay = (double) r.nextInt(50) / 25 - 1;
         double Bx = (double) r.nextInt(50) / 25 - 1;
         double By = (double) r.nextInt(50) / 25 - 1;
         double Cx = (double) r.nextInt(50) / 25 - 1;
+        if (Ax == Bx) Ax = Bx + 0.01;
+        if (Ay == By) Ay = By + 0.01;
+        if (Ax == Cx) Cx = Ax + 0.01;
+        if (Bx == Cx) Cx = Bx + 0.01;
         double k = (Bx - Ax) / (Ay - By);
         double b = By - k * Bx;
         double Cy = k * Cx + b;
